@@ -1,3 +1,4 @@
+import 'package:chickentender/CategoryListWidget.dart';
 import 'package:chickentender/VenueListWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -63,7 +64,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  User user;
+  final User user;
 
   HomePage({key, this.user}) : super(key: key);
 
@@ -78,7 +79,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
-        children: <Widget>[Text('${widget.user.uid}'), VenueListWidget()],
+        children: <Widget>[
+          Text('${widget.user.uid}'),
+          CategoryListWidget(),
+          VenueListWidget(),
+        ],
       ),
     );
   }

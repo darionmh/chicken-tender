@@ -6,7 +6,19 @@ class VenuesResponse {
   VenuesResponse.fromJson(Map<String, dynamic> json) {
     venues = [];
     if (json['venues'] != null) {
-        json['venues'].forEach((v) => {venues.add(new Venue.fromJson(v))});
+      json['venues'].forEach((v) => {venues.add(new Venue.fromJson(v))});
+    }
+  }
+}
+
+class CategoriesResponse {
+  List<Category> categories;
+
+  CategoriesResponse.fromJson(Map<String, dynamic> json) {
+    categories = [];
+    if (json['categories'] != null) {
+      json['categories']
+          .forEach((c) => categories.add(new Category.fromJson(c)));
     }
   }
 }
@@ -20,24 +32,29 @@ class Venue {
   String referralId;
   bool hasPerk;
 
-  Venue({this.id,
-    this.name,
-    this.location,
-    this.categories,
-    this.delivery,
-    this.referralId,
-    this.hasPerk});
+  Venue(
+      {this.id,
+      this.name,
+      this.location,
+      this.categories,
+      this.delivery,
+      this.referralId,
+      this.hasPerk});
 
   Venue.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    location = json['location'] != null ? new Location.fromJson(json['location']) : null;
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
+    categories = [];
     if (json['categories'] != null) {
-      categories = [];
       json['categories']
           .forEach((c) => {categories.add(new Category.fromJson(c))});
     }
-    delivery = json['delivery'] != null ? new Delivery.fromJson(json['delivery']) : null;
+    delivery = json['delivery'] != null
+        ? new Delivery.fromJson(json['delivery'])
+        : null;
     referralId = json['referralId'];
     hasPerk = json['hasPerk'];
   }
@@ -55,16 +72,17 @@ class Location {
   double lng;
   List<String> formattedAddress;
 
-  Location({this.address,
-    this.postalCode,
-    this.city,
-    this.state,
-    this.cc,
-    this.country,
-    this.distance,
-    this.lat,
-    this.lng,
-    this.formattedAddress});
+  Location(
+      {this.address,
+      this.postalCode,
+      this.city,
+      this.state,
+      this.cc,
+      this.country,
+      this.distance,
+      this.lat,
+      this.lng,
+      this.formattedAddress});
 
   Location.fromJson(Map<String, dynamic> json) {
     address = json['address'];
@@ -76,8 +94,8 @@ class Location {
     distance = json['distance'];
     lat = json['lat'];
     lng = json['lng'];
+    formattedAddress = [];
     if (json['formattedAddress'] != null) {
-      formattedAddress = [];
       json['formattedAddress'].forEach((a) => formattedAddress.add(a));
     }
   }
@@ -90,13 +108,15 @@ class Category {
   String shortName;
   IconData icon;
   bool primary;
+  List<Category> subCategories;
 
-  Category({this.id,
-    this.name,
-    this.pluralName,
-    this.shortName,
-    this.icon,
-    this.primary});
+  Category(
+      {this.id,
+      this.name,
+      this.pluralName,
+      this.shortName,
+      this.icon,
+      this.primary});
 
   Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -105,18 +125,33 @@ class Category {
     shortName = json['shortName'];
     icon = json['icon'] != null ? new IconData.fromJson(json['icon']) : null;
     primary = json['primary'];
+
+    subCategories = [];
+    if (json['categories'] != null) {
+      json['categories']
+          .forEach((c) => subCategories.add(new Category.fromJson(c)));
+    }
   }
 }
 
 class IconData {
   String prefix;
   String suffix;
+  final List<int> sizes = [32, 44, 64, 88];
 
   IconData({this.prefix, this.suffix});
 
   IconData.fromJson(Map<String, dynamic> json) {
     prefix = json['prefix'];
     suffix = json['suffix'];
+  }
+
+  String getImageUrl() {
+    return prefix + '32' + suffix;
+  }
+
+  String getImageUrlWithBackground() {
+    return prefix + 'bg_32' + suffix;
   }
 }
 
@@ -130,7 +165,9 @@ class Delivery {
   Delivery.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     url = json['url'];
-    provider = json['provider'] != null ? new DeliveryProvider.fromJson(json['provider']) : null;
+    provider = json['provider'] != null
+        ? new DeliveryProvider.fromJson(json['provider'])
+        : null;
   }
 }
 
@@ -142,7 +179,9 @@ class DeliveryProvider {
 
   DeliveryProvider.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    icon = json['icon'] != null ? new DeliveryProviderIconData.fromJson(json['icon']) : null;
+    icon = json['icon'] != null
+        ? new DeliveryProviderIconData.fromJson(json['icon'])
+        : null;
   }
 }
 
@@ -155,8 +194,8 @@ class DeliveryProviderIconData {
 
   DeliveryProviderIconData.fromJson(Map<String, dynamic> json) {
     prefix = json['prefix'];
+    sizes = [];
     if (json['sizes'] != null) {
-      sizes = [];
       json['sizes'].forEach((s) => sizes.add(s));
     }
     name = json['name'];

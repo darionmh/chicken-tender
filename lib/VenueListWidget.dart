@@ -1,5 +1,5 @@
-import 'package:chickentender/VenueRepository.dart';
-import 'package:chickentender/VenuesResponse.dart';
+import 'package:chickentender/FourSquareRequests.dart';
+import 'package:chickentender/Models.dart';
 import 'package:flutter/material.dart';
 
 class VenueListWidget extends StatefulWidget {
@@ -8,19 +8,18 @@ class VenueListWidget extends StatefulWidget {
 }
 
 class _VenueListWidgetState extends State<VenueListWidget> {
-  VenueRepository venueRepository;
+  FourSquareRequests venueRepository;
   Future<VenuesResponse> futureVenuesResponse;
 
   @override
   void initState() {
     super.initState();
-    venueRepository = new VenueRepository();
+    venueRepository = new FourSquareRequests();
 
     futureVenuesResponse = venueRepository.fetchVenues();
   }
 
   ListView _buildListView(VenuesResponse venuesResponse) {
-    debugPrint('${venuesResponse.venues}');
     return ListView.builder(
         itemCount: venuesResponse.venues.length,
         itemBuilder: (context, index) {
@@ -29,7 +28,17 @@ class _VenueListWidgetState extends State<VenueListWidget> {
               key: Key(venue.id),
               title: Text('${venue.name}'),
               subtitle: Text('${venue.location.address}, ${venue.location.city}, ${venue.location.state} (${venue.location.distance}m)'),
-              trailing: Icon(Icons.ac_unit),
+              trailing: SizedBox(
+                width: 32,
+                height: 32,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(5))
+                  ),
+                  child: Image.network(venue.categories[0].icon.getImageUrl()),
+                ),
+              ),
           );
         });
   }
