@@ -109,6 +109,7 @@ class Category {
   IconData icon;
   bool primary;
   List<Category> subCategories;
+  bool selected = true;
 
   Category(
       {this.id,

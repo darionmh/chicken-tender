@@ -25,20 +25,20 @@ class _VenueListWidgetState extends State<VenueListWidget> {
         itemBuilder: (context, index) {
           var venue = venuesResponse.venues[index];
           return ListTile(
-              key: Key(venue.id),
-              title: Text('${venue.name}'),
-              subtitle: Text('${venue.location.address}, ${venue.location.city}, ${venue.location.state} (${venue.location.distance}m)'),
-              trailing: SizedBox(
-                width: 32,
-                height: 32,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
+            key: Key(venue.id),
+            title: Text('${venue.name}'),
+            subtitle: Text(
+                '${venue.location.address}, ${venue.location.city}, ${venue.location.state} (${venue.location.distance}m)'),
+            trailing: SizedBox(
+              width: 32,
+              height: 32,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
                     color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(5))
-                  ),
-                  child: Image.network(venue.categories[0].icon.getImageUrl()),
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Image.network(venue.categories[0].icon.getImageUrl()),
               ),
+            ),
           );
         });
   }
@@ -46,15 +46,24 @@ class _VenueListWidgetState extends State<VenueListWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: futureVenuesResponse,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Expanded(child: _buildListView(snapshot.data));
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
+      future: futureVenuesResponse,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Expanded(child: _buildListView(snapshot.data));
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
 
-          return CircularProgressIndicator();
-        });
+        return Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

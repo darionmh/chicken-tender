@@ -1,3 +1,4 @@
+import 'package:chickentender/CategoryRepository.dart';
 import 'package:chickentender/FourSquareRequests.dart';
 import 'package:chickentender/Models.dart';
 import 'package:flutter/material.dart';
@@ -8,24 +9,58 @@ class CategoryListWidget extends StatefulWidget {
 }
 
 class _CategoryListWidgetState extends State<CategoryListWidget> {
-  FourSquareRequests fourSquareRequests;
-  Future<CategoriesResponse> futureCategoriesResponse;
+  CategoryRepository categoryRepository;
+  Future<List<Category>> futureCategoryList;
 
   @override
   void initState() {
     super.initState();
-    fourSquareRequests = new FourSquareRequests();
+    categoryRepository = CategoryRepository.getInstance();
 
-    futureCategoriesResponse = fourSquareRequests.fetchCategories();
+    futureCategoryList = categoryRepository.getCategoriesForFood();
   }
 
-  _buildListView(CategoriesResponse categoriesResponse) {
+  _buildListView(List<Category> categories) {
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: categoriesResponse.categories.length,
+      itemCount: categories.length * 2,
       itemBuilder: (context, index) {
-        var category = categoriesResponse.categories[index];
-        return Image.network(category.icon.getImageUrlWithBackground());
+        if (index % 2 == 1) {
+          return Row(
+            children: [
+              SizedBox(
+                height: 8,
+              ),
+            ],
+          );
+        }
+
+        var category = categories[index ~/ 2];
+        return Row(
+          children: [
+            SizedBox(
+              width: 32,
+              height: 32,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Image.network(category.icon.getImageUrl()),
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(8)),
+            Expanded(
+              child: Text(category.shortName),
+            ),
+            Switch(
+                value: category.selected,
+                onChanged: (val) {
+                  setState(() {
+                    category.selected = val;
+                    categoryRepository.updateCategory(category);
+                  });
+                }),
+          ],
+        );
       },
     );
   }
@@ -33,18 +68,48 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: futureCategoriesResponse,
+      future: futureCategoryList,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Container(
-            height: 64,
-            child: _buildListView(snapshot.data),
+          return Flex(
+            direction: Axis.vertical,
+            children: [
+              Padding(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () => debugPrint('clear'),
+                      child: Text('clear all'),
+                    ),
+                    TextButton(
+                      onPressed: () => debugPrint('select'),
+                      child: Text('select all'),
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.only(right: 6),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                  child: _buildListView(snapshot.data),
+                ),
+              )
+            ],
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
 
-        return CircularProgressIndicator();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+          ],
+        );
       },
     );
   }
