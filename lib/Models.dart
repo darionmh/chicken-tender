@@ -133,6 +133,11 @@ class Category {
           .forEach((c) => subCategories.add(new Category.fromJson(c)));
     }
   }
+
+  @override
+  String toString() {
+    return name;
+  }
 }
 
 class IconData {

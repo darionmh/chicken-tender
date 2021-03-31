@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysUsageDescription</key>
+    <string>Your location is required to accurately find venues near you.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location is required to accurately find venues near you.</string>
 </dict>
 </plist>
