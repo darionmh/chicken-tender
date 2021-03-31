@@ -24,15 +24,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Chicken Tender',
-      theme: ThemeData(
-      ),
       home: Scaffold(
         backgroundColor: PURPLE,
-        // appBar: AppBar(
-        //   toolbarHeight: 0,
-        //   backgroundColor: PURPLE,
-        //   elevation: 0,
-        // ),
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -46,11 +39,7 @@ class App extends StatelessWidget {
               }
 
               if (snapshot.connectionState == ConnectionState.done) {
-                return Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: LoginPage(),
-                );
+                return LoginPage();
               }
 
               return CircularProgressIndicator();

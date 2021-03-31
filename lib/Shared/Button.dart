@@ -31,14 +31,14 @@ class Button extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(color: WHITE),
+          style: cardBody,
         ),
       );
     } else {
       return OutlinedButton(
         child: new Text(
           text,
-          style: TextStyle(color: WHITE),
+          style: cardBody,
         ),
         onPressed: onPressed,
         style: ButtonStyle(
