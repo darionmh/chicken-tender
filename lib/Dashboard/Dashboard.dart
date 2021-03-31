@@ -41,7 +41,10 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-            Expanded(child: Upcoming(),),
+            SizedBox(
+              height: 200,
+              child: Upcoming(),
+            ),
             Padding(
               padding: EdgeInsets.only(
                   left: PADDING, right: PADDING, top: 40, bottom: PADDING),
@@ -64,10 +67,10 @@ class _DashboardState extends State<Dashboard> {
                 style: TextStyle(color: WHITE),
                 decoration: InputDecoration(
                   hintText: 'Event Code',
-                  enabledBorder:UnderlineInputBorder(
+                  enabledBorder: UnderlineInputBorder(
                     borderSide: const BorderSide(color: PURPLE_DARK, width: 2),
                   ),
-                  focusedBorder:UnderlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: const BorderSide(color: PURPLE_DARK, width: 2),
                   ),
                   focusColor: WHITE,
@@ -81,7 +84,9 @@ class _DashboardState extends State<Dashboard> {
                 onPressed: () => debugPrint('join'),
               ),
             ),
-            SizedBox(height: PADDING,)
+            SizedBox(
+              height: PADDING,
+            )
           ],
         ),
       ),
