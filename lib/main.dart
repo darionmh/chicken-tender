@@ -1,22 +1,19 @@
-import 'dart:ffi';
-
-import 'package:chickentender/CategoryListWidget.dart';
 import 'package:chickentender/CategoryRepository.dart';
-import 'package:chickentender/FilterDialog.dart';
-import 'package:chickentender/HomeScreen.dart';
+import 'package:chickentender/Dashboard/Dashboard.dart';
 import 'package:chickentender/PlacesRepository.dart';
-import 'package:chickentender/SearchBox.dart';
-import 'package:chickentender/VenueListWidget.dart';
 import 'package:chickentender/VenueRepository.dart';
+import 'package:chickentender/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 Future main() async {
   // NOTE: The filename will default to .env and doesn't need to be defined in this case
   await DotEnv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
 }
 
@@ -27,13 +24,12 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Chicken Tender',
       theme: ThemeData(
-        primarySwatch: Colors.red,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: PURPLE,
         appBar: AppBar(
           toolbarHeight: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: PURPLE,
           elevation: 0,
         ),
         body: GestureDetector(
@@ -110,6 +106,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreen();
+    return Dashboard();
   }
 }
