@@ -1,4 +1,5 @@
 import 'package:chickentender/CategoryRepository.dart';
+import 'package:chickentender/Create/CreateEvent.dart';
 import 'package:chickentender/Dashboard/Dashboard.dart';
 import 'package:chickentender/Event/EventDetails.dart';
 import 'package:chickentender/PlacesRepository.dart';
@@ -97,6 +98,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // return EventDetails();
-    return Dashboard();
+    return CreateEvent();
   }
 }
