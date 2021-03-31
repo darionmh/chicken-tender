@@ -1,5 +1,6 @@
 import 'package:chickentender/CategoryRepository.dart';
 import 'package:chickentender/Dashboard/Dashboard.dart';
+import 'package:chickentender/Event/EventDetails.dart';
 import 'package:chickentender/PlacesRepository.dart';
 import 'package:chickentender/VenueRepository.dart';
 import 'package:chickentender/styles.dart';
@@ -27,11 +28,11 @@ class App extends StatelessWidget {
       ),
       home: Scaffold(
         backgroundColor: PURPLE,
-        appBar: AppBar(
-          toolbarHeight: 0,
-          backgroundColor: PURPLE,
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   toolbarHeight: 0,
+        //   backgroundColor: PURPLE,
+        //   elevation: 0,
+        // ),
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -106,6 +107,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return EventDetails();
     return Dashboard();
   }
 }

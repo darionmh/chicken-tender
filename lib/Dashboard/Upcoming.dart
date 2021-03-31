@@ -1,3 +1,4 @@
+import 'package:chickentender/Shared/EventCard.dart';
 import 'package:chickentender/Shared/SharedCard.dart';
 import 'package:chickentender/styles.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +42,17 @@ class _UpcomingState extends State<Upcoming> {
                 width: PADDING,
                 height: PADDING,
               ),
-              SharedCard(
-                child: Text('Hello'),
+              EventCard(),
+              SizedBox(
+                width: PADDING,
+                height: PADDING,
               ),
-              SharedCard(
-                child: Text('Hello'),
+              EventCard(),
+              SizedBox(
+                width: PADDING,
+                height: PADDING,
               ),
+              EventCard(),
               SizedBox(
                 width: PADDING,
                 height: PADDING,

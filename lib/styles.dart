@@ -21,7 +21,7 @@ final subBody = GoogleFonts.prompt(fontSize: 16, color: TRANSPARENT_WHITE);
 
 final cardBody = GoogleFonts.prompt(fontSize: 16, color: WHITE);
 
-final cardSubtext = GoogleFonts.prompt(fontSize: 12, color: TRANSPARENT_WHITE);
+final cardSubtext = GoogleFonts.prompt(fontSize: 16, color: TRANSPARENT_WHITE);
 
 const PADDING = 16.0;
 
