@@ -25,7 +25,7 @@ class Button extends StatelessWidget {
             return color;
           }),
           side: MaterialStateProperty.resolveWith<BorderSide>((states) {
-            return BorderSide(width: 2, color: RED);
+            return BorderSide(width: 2, color: color);
           }),
         ),
         onPressed: onPressed,
