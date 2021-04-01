@@ -98,6 +98,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // return EventDetails();
-    return CreateEvent();
+    // return CreateEvent();
+    return Dashboard();
   }
 }

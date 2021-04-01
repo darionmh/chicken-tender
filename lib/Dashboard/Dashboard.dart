@@ -1,10 +1,10 @@
+import 'package:chickentender/Create/CreateEvent.dart';
 import 'package:chickentender/Dashboard/Upcoming.dart';
 import 'package:chickentender/Shared/FullButton.dart';
 import 'package:chickentender/styles.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
-
   Dashboard({key}) : super(key: key);
 
   @override
@@ -12,6 +12,11 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  _createNewEvent() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => CreateEvent()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,10 @@ class _DashboardState extends State<Dashboard> {
                   height: 50,
                   width: 50,
                   child: DecoratedBox(
-                    child: Icon(Icons.person, color: PURPLE,),
+                    child: Icon(
+                      Icons.person,
+                      color: PURPLE,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: Colors.white,
@@ -62,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
             padding: EdgeInsets.symmetric(horizontal: PADDING),
             child: FullButton(
               title: 'Create New Event',
-              onPressed: () => debugPrint('boop'),
+              onPressed: _createNewEvent,
             ),
           ),
           Padding(
